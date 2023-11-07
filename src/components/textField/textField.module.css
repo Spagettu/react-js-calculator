@@ -12,13 +12,11 @@
     text-align: center;
 }
 
-.textField:hover{
-    box-shadow: 2px 1px 5px 1px rgb(108, 33, 5);
-}
-
 .input{
     width: 90%;
     height: 100%;
+
+    padding-top: 10px;
 
     position: relative;
     font-size: 30px;
@@ -30,6 +28,9 @@
 .equal{
     width: 90%;
     height: 100%;
+
+    padding-top: 10px;
+    
 
     position: relative;
     font-size: 30px;

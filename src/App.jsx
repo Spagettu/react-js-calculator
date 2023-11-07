@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import { TextField } from "./components/textField/textFiled";
+import { TextField } from "./components/textField/textField";
 import { ButtonList } from "./components/buttons/buttonList";
 import { NumbersList } from "./components/numbersList/numbersList";
 
@@ -16,12 +16,23 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 export function App() {
   const [count, setCount] = useState(0); /* первое число для подсчета*/
   const [action, setAction] = useState("+"); /* знак действия / оператор*/
-  const [str, setStr] = useState(""); /* число, вводимое в данный момент*/
+  const [number, setNumber] = useState(""); /* число, вводимое в данный момент*/
+
+  useEffect(() => {
+    document.addEventListener("keydown", click);
+    return () => document.removeEventListener("keydown", click);
+  });
+
+  const click = (e) => {
+    if (/[0-9]/.test(e.key)) {
+      setNumber((prev) => prev + e.key);
+    }
+  };
 
   const decide = (e) => {
     /* обработка примера после нажатия на знак оператора или сброс */
     if (e == "C") {
-      setStr("");
+      setNumber("");
       setCount(0);
       setAction("+");
       return;
@@ -29,36 +40,31 @@ export function App() {
 
     setAction(e);
 
-    if (str) {
+    if (number) {
       switch (action) {
         case "+":
-          setCount(count + Number(str));
+          setCount(count + Number(number));
           break;
         case "-":
-          setCount(count - Number(str));
+          setCount(count - Number(number));
           break;
         default:
           console.log("def");
       }
     }
-    setStr("");
+    setNumber("");
   };
 
   const change = (e) => {
-    /* запись вводимого числа*/
-
-    setStr(str + e);
+    setNumber((prev) => prev + e);
   };
 
   return (
     <div className="app">
       <div className="container">
         <TextField
-          name="textField"
-          className="textField"
-          change={change}
           count={count}
-          str={str}
+          number={number}
           equal={action === "=" ? true : false}
         ></TextField>
         <NumbersList
@@ -71,3 +77,5 @@ export function App() {
     </div>
   );
 }
+
+//tested in Firefox
