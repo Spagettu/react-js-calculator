@@ -1,0 +1,17 @@
+.button{
+    width: 80px;
+    height: calc(100%/4);
+    border-radius: 4px;
+    
+}
+
+.buttonList{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.button:hover{
+    box-shadow: none;
+}
